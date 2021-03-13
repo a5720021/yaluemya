@@ -193,6 +193,17 @@ app.post("/getMyData", (req, res) => {
   res.json(userData);
 });
 
+app.post("/deletePill", (req, res) => {
+  const UID = req.body.UID;
+  const index = req.body.index;
+  let iUser = null;
+  database.forEach((item, i) => {
+    if (item.UID == UID) iUser = i;
+  });
+  database[iUser].data.splice(index, 1);
+  res.json(database[iUser]);
+});
+
 app.get("/getAll", (req, res) => {
   res.json(database);
 });
