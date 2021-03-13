@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>หนูทิน</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style/switch.css" />
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+    ></script>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Kanit", sans-serif;
+      background-color: #f2f2f2;
+    }
+    input::placeholder {
+      font-family: "Kanit", sans-serif;
+    }
+
+    .mainLoginInput::-webkit-input-placeholder {
+      font-family: "Kanit", sans-serif;
+    }
+
+    .mainLoginInput:-moz-placeholder {
+      font-family: "Kanit", sans-serif;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      margin-left: 12px;
+      color: #222;
+    }
+    p {
+      color: #222;
+    }
+    #logo,
+    #img_profile {
+      height: 24px;
+      width: 24px;
+    }
+
+    #img_profile {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+    }
+
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-radius: 0 0 12px 12px;
+    }
+    .content-nav {
+      width: 100vw - 24px;
+      background-color: white;
+      border-radius: 0 0 12px 12px;
+    }
+    .content-nav {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .content-logo,
+    .content-profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 60px;
+    }
+    table,
+    .add-pill {
+      width: 100vw;
+      max-width: 800px;
+      margin: 8px 0;
+      border-radius: 12px;
+    }
+    .add-pill {
+      background-color: white;
+    }
+    .bt-add-pill {
+      cursor: pointer;
+      width: 100% - 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .form-add-pill {
+      transition: 0.3s;
+      padding: 12px;
+      padding-top: 0;
+      display: none;
+    }
+    .form-add-pill input {
+      border: none;
+      background-color: #f2f2f2;
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .form-add-pill label {
+      margin-left: 8px;
+    }
+    .input-pill {
+      display: flex;
+      flex-direction: column;
+      margin-top: 8px;
+    }
+    .label-time {
+      margin-left: 12px;
+    }
+    .bt-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 9px;
+      margin: 4px 16px 4px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #content_color {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-left: 8px;
+    }
+    .content-add-time {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .bt-submit {
+      background-color: #2196f3;
+      color: white;
+      width: fit-content;
+      padding: 2px 12px 2px 12px;
+      border-radius: 12px;
+      text-align: center;
+      align-self: flex-end;
+    }
+    h4 {
+      margin: 0;
+    }
+    .card {
+      background-color: white;
+      margin-top: 4px;
+      border-radius: 12px;
+      padding: 12px 0;
+      /* padding-left: 24px; */
+      overflow: hidden;
+      position: relative;
+      width: 100vw;
+      max-width: 800px;
+    }
+    .card p,
+    h2 {
+      margin: 0;
+    }
+    .card h2 {
+      margin-left: 24px;
+    }
+    .body-card {
+      margin-left: 24px;
+    }
+    .tag-colot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 12px;
+    }
+    .footer-card {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    .tag-time {
+      display: flex;
+      flex-direction: row;
+      width: fit-content;
+      padding: 8px;
+      border-radius: 30px;
+      background-color: #f2f2f2;
+      align-items: center;
+      margin-right: 6px;
+    }
+    .tag-time p {
+      margin-left: 4px;
+      font-size: 12px;
+    }
+    /* The switch - the box around the slider */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 30px;
+      height: 16px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196f3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196f3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(13px);
+      -ms-transform: translateX(13px);
+      transform: translateX(13px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  </style>
+  <body>
+    <nav class="nav-bar">
+      <div class="content-nav">
+        <div class="content-logo">
+          <img
+            alt="logo"
+            src="https://www.flaticon.com/svg/vstatic/svg/2817/2817889.svg?token=exp=1615610153~hmac=c702f159c16bd2c6ba670e41e13676d5"
+            id="logo"
+          />
+          <h1 id="Logo-name">Nutin</h1>
+        </div>
+        <div class="content-profile">
+          <img alt="img-profile" class="img-profile" id="img_profile" />
+          <!-- <h1 id="displayname"></h1> -->
+        </div>
+      </div>
+    </nav>
+    <main class="container">
+      <div class="add-pill">
+        <div class="bt-add-pill" id="bt-add-pill">
+          <h1>เพิ่มยา</h1>
+          <img
+            src="arrow-down-sign-to-navigate.png"
+            width="12px"
+            height="12px"
+            style="transform: rotate(-90deg); transition: 0.3s"
+            id="icon-more"
+          />
+        </div>
+        <form
+          class="form-add-pill"
+          id="form-add-pill"
+          style="transition: visibility 0s, opacity 0.5s linear"
+        >
+          <div class="input-pill">
+            <label id="label_pill_name" for="pill_name"> ชื่อยา * </label>
+            <input id="pill_name" placeholder="ชื่อยา" />
+          </div>
+          <div class="input-pill">
+            <label for="pill_detail">รายละเอียด</label>
+            <input id="pill_detail" placeholder="รายละเอียด" />
+          </div>
+
+          <div class="input-pill">
+            <label id="label_pill_color" for="content_color">แท็กสี</label>
+            <div id="content_color"></div>
+          </div>
+
+          <div class="input-pill" id="content_time">
+            <label id="label_pill_time">เวลากินยา *</label>
+          </div>
+          <div class="bt-submit" id="submit">
+            <h4>เสร็จสิ้น</h4>
+          </div>
+        </form>
+      </div>
+      <div id="container-card" class="container-card">
+        <div class="card">
+          <div class="card-tag">
+            <div class="tag-colot" style="background-color: violet"></div>
+            <header class="header-card"><h2>ยาอะไรซักอย่าง</h2></header>
+            <div class="body-card">
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id,
+                dolor optio.
+              </p>
+            </div>
+            <footer class="footer-card">
+              <div class="tag-time">
+                <img src="./img/sunrise.png" height="16px" />
+                <p>เช้า</p>
+              </div>
+
+              <div class="tag-time">
+                <img src="./img/night.png" height="16px" />
+                <p>กลางคืน</p>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script
+    charset="utf-8"
+    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+  ></script>
+  <script>
+    let showContentAdd = false;
+    let colorSelected = 0;
+    const listTime = ["เช้า", "กลางวัน", "เย็น", "ก่อนนอน"];
+    const listColor = [
+      "#f09e00",
+      "#ffa7ff",
+      "#00b300",
+      "#0059d3",
+      "#ff757a",
+      "#00285a",
+      "#57d2db",
+      "#643a00",
+      "#77cc12",
+      "#0074ff",
+      "#c0df27",
+      "#ff0018",
+      "#00ffff",
+      "#ff8c3e",
+      "#ffff76",
+      "#007274",
+    ];
+    const mockupProfile = {
+      displayName: "ปอนด์' ✌🏻",
+      pictureUrl:
+        "https://profile.line-scdn.net/0hNrLBlITKEV1xOzoq3OduCk1-HzAGFRcVCV0OP1I6GjgJAlYNRQgJbwc8SjpeAldeSlQLMwc8S29c",
+      userId: "U97c1f0227ae7eba2ff0cfb95b0a35fd4",
+    };
+
+    const listTagTime = {
+      เช้า: {
+        img: "./img/sunrise.png",
+        title: "เช้า",
+      },
+      กลางวัน: {
+        img: "./img/cloud.png",
+        title: "กลางวัน",
+      },
+      เย็น: {
+        img: "./img/sunsets.png",
+        title: "เย็น",
+      },
+      ก่อนนอน: {
+        img: "./img/night.png",
+        title: "ก่อนนอน",
+      },
+    };
+
+    const main = async () => {
+      await liff.init({ liffId: "1655752454-7O2ekWeV" });
+      if (liff.isLoggedIn()) {
+        getUserProfile();
+      } else {
+        liff.login();
+      }
+    };
+    main();
+
+    listTime.forEach((item, index) => {
+      const tr = document.createElement("div");
+      tr.innerHTML = `<label class="switch" id="btswitch-${index}">
+                    <input type="checkbox" id="${index}-btswitch" />
+                    <span class="slider round"></span>
+                  </label>
+                  <p class="label-time">${item}</p>
+                  <input
+                    type="time"
+                    id="appt"
+                    name="appt"
+                    style="justify-self: flex-end"
+                    required
+                  />`;
+      tr.setAttribute("class", "content-add-time");
+      document.querySelector("#content_time").appendChild(tr);
+      document
+        .querySelector(`#btswitch-${index}`)
+        .addEventListener("click", () => console.log(`btswitch-${index}`));
+    });
+
+    document
+      .querySelector("#bt-add-pill")
+      .addEventListener("click", showHideForm);
+
+    function showHideForm() {
+      var x = document.querySelector("#form-add-pill");
+      const icon = document.querySelector("#icon-more");
+
+      if (x.style.display === "none") {
+        icon.style.transform = "rotate(0deg)";
+        x.style.display = "block";
+      } else {
+        icon.style.transform = "rotate(-90deg)";
+        x.style.display = "none";
+      }
+    }
+
+    document.querySelector("#submit").addEventListener("click", () => {
+      const data = {};
+      data["name"] = document.querySelector("#pill_name").value;
+      data["detail"] = document.querySelector("#pill_detail").value;
+      data["tag"] = listColor[colorSelected];
+      const timeContent = document.querySelectorAll(".content-add-time");
+      console.log(timeContent);
+      const time = [];
+      timeContent.forEach((item) => {
+        const title = item.children[1].innerHTML;
+        const checked = item.children[0].children[0].checked;
+        const t = item.children[2].value;
+        if (checked && t != "") time.push({ title, Hm: t, status: false });
+      });
+      data["time"] = time;
+      if (data.name == "") {
+        document.querySelector("#label_pill_name").style.color = "#ff5050";
+        document.querySelector("#pill_name").style.backgroundColor = "#ffeeee";
+        return;
+      } else {
+        document.querySelector("#label_pill_name").style.color = "#222";
+        document.querySelector("#pill_name").style.backgroundColor = "#f0f0f0";
+      }
+
+      if (data.time.length == 0) {
+        document.querySelector("#label_pill_time").style.color = "#ff5050";
+        return;
+      } else document.querySelector("#label_pill_time").style.color = "#f0f0f0";
+      console.log(data);
+    });
+
+    const selectedColor = (input = 0) => {
+      colorSelected = input;
+      const conten = document.querySelector("#content_color");
+      conten.innerHTML = "";
+      listColor.forEach((item, index) => {
+        const bt = document.createElement("div");
+        bt.setAttribute("class", "bt-color");
+        bt.style.backgroundColor = item;
+        bt.addEventListener("click", () => {
+          selectedColor(index);
+        });
+        if (index == colorSelected) {
+          bt.innerHTML = `<img src="tick.png" style="width: 60%; hieght: 60%; margin: auto;"/>`;
+        }
+        conten.appendChild(bt);
+      });
+    };
+
+    selectedColor();
+
+    const getUserProfile = async () => {
+      const profile = await liff.getProfile();
+      //   const profile = mockupProfile; //MockupData
+      document
+        .querySelector("#img_profile")
+        .setAttribute("src", profile.pictureUrl);
+      //   document.querySelector("#displayname").innerHTML = profile.displayName;
+
+      console.log(profile);
+    };
+    // getUserProfile();
+    //Read File:
+    const readTextFile = async (file, callback = () => {}) => {
+      const rawFile = new XMLHttpRequest();
+      let res;
+      rawFile.overrideMimeType("application/json");
+      rawFile.open("GET", file, true);
+      rawFile.onreadystatechange = async () => {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+          callback(JSON.parse(rawFile.responseText));
+        }
+      };
+      rawFile.send(null);
+    };
+
+    //usage:
+    const data = readTextFile("./database.json", (res) => {
+      const userData = getUserData("2", res);
+      console.log(userData);
+      let listPill = "";
+      userData.data.forEach((item, index) => {
+        let tagTime = ``;
+        item.time &&
+          item.time.forEach((t) => {
+            if (t.title == "เช้า")
+              tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunrise.png?alt=media" height="16px" />
+                <p>เช้า</p>
+              </div>`;
+            if (t.title == "กลางวัน")
+              tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/cloudy.png" height="16px" />
+                <p>กลางวัน</p>
+              </div>`;
+            if (t.time == "เย็น")
+              tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunsets.png?alt=media" height="16px" />
+                <p>เย็น</p>
+              </div>`;
+            if (t.time == "ก่อนนอน")
+              tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/night.png?alt=media" height="16px" />
+                <p>ก่อนนอน</p>
+              </div>`;
+          });
+
+        // const card = document.createElement("div");
+        // card.setAttribute("class", "card");
+        // const tagColor = document.createElement("div");
+        // tagColor.setAttribute("class", "tag-colot");
+        // const header = document.createElement("div");
+        // const h2 = document.createElement("h2");
+        // const body = document.createElement("div");
+        // const p = document.createElement("p");
+        // const footer = document.createElement("footer");
+        const content = `<div class="card">
+          <div class="card-tag">
+            <div class="tag-colot" style="background-color: ${item.tag}"></div>
+            <header class="header-card"><h2>${item.name}</h2></header>
+            ${
+              item.detail != null
+                ? `<div class="body-card">
+              <p>
+                ${item.detail}
+              </p>
+            </div>`
+                : ""
+            }
+            <footer class="footer-card">
+              ${tagTime}
+            </footer>
+          </div>
+        </div>`;
+        listPill += content;
+      });
+      document.querySelector("#container-card").innerHTML = listPill;
+      listPill = "";
+    });
+
+    const getUserData = (UID, data = []) => {
+      return (res = data.find((item) => item.UID == UID));
+    };
+  </script>
+</html>
