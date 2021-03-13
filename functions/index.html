@@ -586,7 +586,7 @@
 
             const content = `<div class="card">
           <div class="card-tag">
-            <img class="bt-del" onclick="() => deletePill({ UID: profile.userId, index})" src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/clear.png?alt=media"/>
+            <img class="bt-del" id="bt-del-${index}"  src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/clear.png?alt=media"/>
             <div class="tag-colot" style="background-color: ${item.tag}"></div>
             <header class="header-card"><h2>${item.name}</h2></header>
             ${
@@ -605,8 +605,16 @@
         </div>`;
             listPill += content;
           });
+
           document.querySelector("#container-card").innerHTML = listPill;
           listPill = "";
+          for (let index = 0; index < userData.data.length; index++) {
+            document
+              .querySelector(`#bt-del-${index}`)
+              .addEventListener("click", () => {
+                deletePill({ UID: profile.userId, index });
+              });
+          }
         })
         .catch((err) => console.log({ err }));
   </script>
