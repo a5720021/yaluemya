@@ -312,6 +312,20 @@
             <label id="label_pill_name" for="pill_name"> ชื่อยา * </label>
             <input id="pill_name" placeholder="ชื่อยา" />
           </div>
+
+          <div class="input-pill">
+            <label for="pill_index" id="label_pill_index">ช่องใส่ยา *</label>
+            <input
+              type="number"
+              id="pill_index"
+              name="pill_index"
+              min="1"
+              max="7"
+              step="1"
+              value="1"
+            />
+          </div>
+
           <div class="input-pill">
             <label for="pill_detail">รายละเอียด</label>
             <input id="pill_detail" placeholder="รายละเอียด" />
@@ -419,6 +433,7 @@
       const data = {};
       data["name"] = document.querySelector("#pill_name").value;
       data["detail"] = document.querySelector("#pill_detail").value;
+      data["index"] = document.querySelector("#pill_index").value;
       data["tag"] = listColor[colorSelected];
       const timeContent = document.querySelectorAll(".content-add-time");
       console.log(timeContent);
@@ -438,6 +453,12 @@
         document.querySelector("#label_pill_name").style.color = "#222";
         document.querySelector("#pill_name").style.backgroundColor = "#f0f0f0";
       }
+
+      if (data.index == null) {
+        document.querySelector("#label_pill_index").style.color = "#ff5050";
+        return;
+      } else
+        document.querySelector("#label_pill_index").style.color = "#f0f0f0";
 
       if (data.time.length == 0) {
         document.querySelector("#label_pill_time").style.color = "#ff5050";
@@ -513,7 +534,6 @@
       console.log(response);
       return response; // parses JSON response into native JavaScript objects
     }
-
 
     const getData = () =>
       fetch(
