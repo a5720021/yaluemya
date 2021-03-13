@@ -94,7 +94,6 @@ let database = [
       },
     ],
   },
-
   {
     UID: "2",
     displayName: "ยายเพ็ญ",
@@ -142,6 +141,14 @@ let database = [
   },
 ];
 
+const getMydata = (UID) => {
+  let userData;
+  database.forEach((item) => {
+    if (item.UID == UID) userData = item;
+  });
+  return userData;
+};
+
 // Import the appropriate class
 const { WebhookClient } = require("dialogflow-fulfillment");
 
@@ -159,6 +166,37 @@ app.post("/", (req, res) => {
   STATUS = 1;
   res.json("Success: " + DATA);
 });
+
+app.post("/getMyData", (req, res) => {
+  const UID = req.body.UID;
+  const userData = getMydata(UID);
+  res.json(userData);
+});
+
+app.get("/getAll", (req, res) => {
+  res.json(database);
+});
+
+app.post("/postMyData", (req, res) => {
+  const UID = req.body.UID;
+  const displayName = req.body.displayName || undefined;
+  const pills = req.body.data || undefined;
+  let index = null;
+  database.forEach((item, i) => {
+    if (item.UID == UID) index = i;
+  });
+
+  if (index == null) {
+    database.push({ UID, displayName, data: pills });
+    res.json({ UID, displayName, data: pills });
+  } else {
+    pills.forEach((item) => {
+      database[index].data.push(item);
+    });
+    res.json(database[index]);
+  }
+});
+
 
 app.get("/web", (req, res) => {
   res.sendFile("./index.html", { root: __dirname });
