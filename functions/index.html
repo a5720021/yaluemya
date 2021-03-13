@@ -156,7 +156,6 @@
     .bt-submit {
       background-color: #2196f3;
       color: white;
-      width: fit-content;
       padding: 2px 12px 2px 12px;
       border-radius: 12px;
       text-align: center;
@@ -443,7 +442,56 @@
         document.querySelector("#label_pill_time").style.color = "#ff5050";
         return;
       } else document.querySelector("#label_pill_time").style.color = "#f0f0f0";
-      console.log(data);
+      postData(
+        "http://localhost:5001/x-group-290609/asia-east2/apiNutin/postMyData",
+        { UID: profile.userId, displayName: profile.displayName, data }
+      ).then(() => {
+        data.time.forEach((t) => {
+          if (t.title == "เช้า")
+            tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunrise.png?alt=media" height="16px" />
+                <p>เช้า</p>
+              </div>`;
+          if (t.title == "กลางวัน")
+            tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/cloudy.png?alt=media" height="16px" />
+                <p>กลางวัน</p>
+              </div>`;
+          if (t.time == "เย็น")
+            tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunsets.png?alt=media" height="16px" />
+                <p>เย็น</p>
+              </div>`;
+          if (t.time == "ก่อนนอน")
+            tagTime += `<div class="tag-time">
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/night.png?alt=media" height="16px" />
+                <p>ก่อนนอน</p>
+              </div>`;
+        });
+        const content = `<div class="card">
+          <div class="card-tag">
+            <div class="tag-colot" style="background-color: ${data.tag}"></div>
+            <header class="header-card"><h2>${name}</h2></header>
+            ${
+              data.detail != null
+                ? `<div class="body-card">
+              <p>
+                ${data.detail}
+              </p>
+            </div>`
+                : ""
+            }
+            <footer class="footer-card">
+              ${tagTime}
+            </footer>
+          </div>
+        </div>`;
+        let oldCard = String(
+          document.querySelector("#container-card").innerHTML
+        );
+        oldCard += content;
+        document.querySelector("#container-card").innerHTML = oldCard;
+      });
     });
 
     const selectedColor = (input = 0) => {
@@ -491,38 +539,59 @@
       rawFile.send(null);
     };
 
-    //usage:
-    const data = readTextFile("./database.json", (res) => {
-      const userData = getUserData("2", res);
-      console.log(userData);
-      let listPill = "";
-      userData.data.forEach((item, index) => {
-        let tagTime = ``;
-        item.time &&
-          item.time.forEach((t) => {
-            if (t.title == "เช้า")
-              tagTime += `<div class="tag-time">
+    // Example POST method implementation:
+    async function postData(url = "", data = {}) {
+      // Default options are marked with *
+      const response = await fetch(url, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+      });
+      return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    postData(
+      "http://localhost:5001/x-group-290609/asia-east2/apiNutin/getMyData",
+      { UID: profile.userId || null }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        let listPill = "";
+        userData.data.forEach((item, index) => {
+          let tagTime = ``;
+          item.time &&
+            item.time.forEach((t) => {
+              if (t.title == "เช้า")
+                tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunrise.png?alt=media" height="16px" />
                 <p>เช้า</p>
               </div>`;
-            if (t.title == "กลางวัน")
-              tagTime += `<div class="tag-time">
+              if (t.title == "กลางวัน")
+                tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/cloudy.png?alt=media" height="16px" />
                 <p>กลางวัน</p>
               </div>`;
-            if (t.time == "เย็น")
-              tagTime += `<div class="tag-time">
+              if (t.time == "เย็น")
+                tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunsets.png?alt=media" height="16px" />
                 <p>เย็น</p>
               </div>`;
-            if (t.time == "ก่อนนอน")
-              tagTime += `<div class="tag-time">
+              if (t.time == "ก่อนนอน")
+                tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/night.png?alt=media" height="16px" />
                 <p>ก่อนนอน</p>
               </div>`;
-          });
+            });
 
-        const content = `<div class="card">
+          const content = `<div class="card">
           <div class="card-tag">
             <div class="tag-colot" style="background-color: ${item.tag}"></div>
             <header class="header-card"><h2>${item.name}</h2></header>
@@ -540,14 +609,20 @@
             </footer>
           </div>
         </div>`;
-        listPill += content;
+          listPill += content;
+        });
+        document.querySelector("#container-card").innerHTML = listPill;
+        listPill = "";
       });
-      document.querySelector("#container-card").innerHTML = listPill;
-      listPill = "";
-    });
+    //usage:
+    // const data = readTextFile("./database.json", (res) => {
+    //   const userData = getUserData("2", res);
+    //   console.log(userData);
 
-    const getUserData = (UID, data = []) => {
-      return (res = data.find((item) => item.UID == UID));
-    };
+    // });
+
+    // const getUserData = (UID, data = []) => {
+    //   return (res = data.find((item) => item.UID == UID));
+    // };
   </script>
 </html>
