@@ -55,7 +55,7 @@ let database = [
         ],
         detail: null,
         tag: "#f09e00",
-        index: 3
+        index: 3,
       },
       {
         name: "ยา2",
@@ -68,7 +68,7 @@ let database = [
         ],
         detail: null,
         tag: "#f09e00",
-        index: 4
+        index: 4,
       },
     ],
   },
@@ -93,7 +93,7 @@ let database = [
         ],
         detail: null,
         tag: "#f09e00",
-        index: 2
+        index: 2,
       },
     ],
   },
@@ -122,7 +122,7 @@ let database = [
         ],
         detail: "ครั้งละ 1 เม็ดก่อนอาหาร",
         tag: "#f09eff",
-        index: 1
+        index: 1,
       },
       {
         name: "Aspirin 250 Mg",
@@ -140,7 +140,7 @@ let database = [
         ],
         detail: "ครั้งละ 2 เม็ดก่อนอาหาร",
         tag: "#009e00",
-        index: 2
+        index: 2,
       },
     ],
   },
@@ -186,6 +186,7 @@ app.post("/postMyData", (req, res) => {
   const UID = req.body.UID;
   const displayName = req.body.displayName || undefined;
   const pills = req.body.data || undefined;
+  console.log(pills);
   let index = null;
   database.forEach((item, i) => {
     if (item.UID == UID) index = i;
@@ -195,9 +196,7 @@ app.post("/postMyData", (req, res) => {
     database.push({ UID, displayName, data: pills });
     res.json({ UID, displayName, data: pills });
   } else {
-    pills.forEach((item) => {
-      database[index].data.push(item);
-    });
+    database[index].data.push(pills);
     res.json(database[index]);
   }
 });
