@@ -11,21 +11,20 @@ const client = new line.Client({
 const slot = "กลางวัน"; // Check slot by compare with time range
 
 request(
-  "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/data",
-  function (error, response, body) {
+  "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/data", (error, response, body) => {
     // console.error('error:', error); // Print the error if one occurred
     // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     // console.log('body:', body); // Print the HTML for the Google homepage.
     let medicineSchedule = JSON.parse(body);
-    console.log(medicineSchedule);
+    // console.log(medicineSchedule);
     request.post(
-      "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/data",
+      "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin",
       { 
         form: { 
-          LIST_LIGHT: "=" + medicineSchedule[0].map() 
+          LIST_LIGHT: "=" + medicineSchedule[0].data.map(e => e.index).join("")
         } 
       }
-    );
+    , (err, res, body) => { console.log(body) });
     const column = medicineSchedule
       .filter((user) => {
         const data = user.data[0].time.find((e) => e.title === slot);

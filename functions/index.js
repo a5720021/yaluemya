@@ -193,7 +193,7 @@ app.post("/postMyData", (req, res) => {
   });
 
   if (index == null) {
-    database.push({ UID, displayName, data: pills });
+    database.push({ UID, displayName, data: [pills] });
     res.json({ UID, displayName, data: pills });
   } else {
     database[index].data.push(pills);
