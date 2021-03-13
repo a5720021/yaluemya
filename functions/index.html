@@ -586,11 +586,7 @@
 
             const content = `<div class="card">
           <div class="card-tag">
-            <img class="bt-del" onclick="${() =>
-              deletePill({
-                UID: profile.userId,
-                index,
-              })}" src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/clear.png?alt=media"/>
+            <img class="bt-del" onclick="() => deletePill({ UID: profile.userId, index})" src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/clear.png?alt=media"/>
             <div class="tag-colot" style="background-color: ${item.tag}"></div>
             <header class="header-card"><h2>${item.name}</h2></header>
             ${
