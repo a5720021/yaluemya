@@ -55,6 +55,7 @@ let database = [
         ],
         detail: null,
         tag: "#f09e00",
+        index: 3
       },
       {
         name: "ยา2",
@@ -67,6 +68,7 @@ let database = [
         ],
         detail: null,
         tag: "#f09e00",
+        index: 4
       },
     ],
   },
@@ -91,6 +93,7 @@ let database = [
         ],
         detail: null,
         tag: "#f09e00",
+        index: 2
       },
     ],
   },
@@ -120,6 +123,7 @@ let database = [
         ],
         detail: "ครั้งละ 1 เม็ดก่อนอาหาร",
         tag: "#f09eff",
+        index: 1
       },
       {
         name: "Aspirin 250 Mg",
@@ -137,6 +141,7 @@ let database = [
         ],
         detail: "ครั้งละ 2 เม็ดก่อนอาหาร",
         tag: "#009e00",
+        index: 2
       },
     ],
   },
@@ -213,7 +218,7 @@ app.post("/webhook", (req, res) => {
     // const payload = data.payload.data
     // console.log(data)
     STATUS = 0;
-    agent.add(`สำเร็จ`);
+    agent.add(`เก่งมาก`);
   }
 
   // Run the proper function handler based on the matched Dialogflow intent name
