@@ -45,30 +45,45 @@ let database = [
     displayName: "test",
     data: [
       {
-        name: "ยา1",
+        name: "Paracetamol 500 Mg",
         time: [
           {
             title: "เช้า",
             Hm: "08:30",
-            status: true,
+            status: false,
+          },
+          {
+            title: "กลางวัน",
+            Hm: "12:30",
+            status: false,
+          },
+          {
+            title: "เย็น",
+            Hm: "18:30",
+            status: false,
           },
         ],
-        detail: null,
-        tag: "#f09e00",
-        index: 3,
+        detail: "ครั้งละ 1 เม็ดก่อนอาหาร",
+        tag: "#f09eff",
+        index: 1,
       },
       {
-        name: "ยา2",
+        name: "Aspirin 250 Mg",
         time: [
           {
             title: "เช้า",
             Hm: "08:30",
-            status: true,
+            status: false,
+          },
+          {
+            title: "เย็น",
+            Hm: "18:30",
+            status: false,
           },
         ],
-        detail: null,
-        tag: "#f09e00",
-        index: 4,
+        detail: "ครั้งละ 2 เม็ดก่อนอาหาร",
+        tag: "#009e00",
+        index: 2,
       },
     ],
   },

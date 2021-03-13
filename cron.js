@@ -11,7 +11,7 @@ const client = new line.Client({
 const slot = "กลางวัน"; // Check slot by compare with time range
 
 request(
-  "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/data", (error, response, body) => {
+  "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/getAll", (error, response, body) => {
     // console.error('error:', error); // Print the error if one occurred
     // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     // console.log('body:', body); // Print the HTML for the Google homepage.
@@ -25,14 +25,18 @@ request(
         } 
       }
     , (err, res, body) => { console.log(body) });
+    // console.log(medicineSchedule)
     const column = medicineSchedule
       .filter((user) => {
-        const data = user.data[0].time.find((e) => e.title === slot);
-        return data && data.status === false;
+        // console.log(user.data.reduce((total, cur) => total || cur.time.find(e => e.title === slot), false))
+        return user.data.reduce((total, cur) => total || cur.time.find(e => e.title === slot), false)
+        // const data = user.data[0].time.find((e) => e.title === slot);
+        // return data && data.status === false;
       })
       .map((user) => {
+        
         // const user = medicineSchedule[1].displayName
-        const detail = user.data.map((med) => `- ${med.name}`).join("\n");
+        const detail = user.data.filter(med => med.title === slot).map((med) => `- ${med.name}`).join("\n");
         return {
           title: "ยา" + slot + "ของ" + user.displayName,
           text: detail,
