@@ -273,6 +273,15 @@
     .slider.round:before {
       border-radius: 50%;
     }
+
+    .bt-del {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      position: absolute;
+      right: 12px;
+      top: 20px;
+    }
   </style>
   <body>
     <nav class="nav-bar">
@@ -296,7 +305,7 @@
         <div class="bt-add-pill" id="bt-add-pill">
           <h1>เพิ่มยา</h1>
           <img
-            src="arrow-down-sign-to-navigate.png"
+            src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/arrow-down-sign-to-navigate.png?alt=media"
             width="12px"
             height="12px"
             style="transform: rotate(-90deg); transition: 0.3s"
@@ -502,18 +511,12 @@
       getData();
     };
     // getUserProfile();
-    //Read File:
-    const readTextFile = async (file, callback = () => {}) => {
-      const rawFile = new XMLHttpRequest();
-      let res;
-      rawFile.overrideMimeType("application/json");
-      rawFile.open("GET", file, true);
-      rawFile.onreadystatechange = async () => {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-          callback(JSON.parse(rawFile.responseText));
-        }
-      };
-      rawFile.send(null);
+
+    const deletePill = async ({ UID, index }) => {
+      postData(
+        "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/deletePill",
+        { UID, index }
+      ).then(() => location.reload());
     };
 
     async function postData(url = "", data = {}) {
@@ -583,6 +586,11 @@
 
             const content = `<div class="card">
           <div class="card-tag">
+            <img class="bt-del" onclick="${() =>
+              deletePill({
+                UID: profile.userId,
+                index,
+              })}" src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/clear.png?alt=media"/>
             <div class="tag-colot" style="background-color: ${item.tag}"></div>
             <header class="header-card"><h2>${item.name}</h2></header>
             ${
