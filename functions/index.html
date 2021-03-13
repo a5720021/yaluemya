@@ -340,7 +340,7 @@
   <script>
     let showContentAdd = false;
     let colorSelected = 0;
-    let profile= null;
+    let profile = null;
     const listTime = ["เช้า", "กลางวัน", "เย็น", "ก่อนนอน"];
     const listColor = [
       "#f09e00",
@@ -516,7 +516,7 @@
     selectedColor();
 
     const getUserProfile = async () => {
-       profile = await liff.getProfile();
+      profile = await liff.getProfile();
       //   const profile = mockupProfile; //MockupData
       document
         .querySelector("#img_profile")
@@ -524,6 +524,7 @@
       //   document.querySelector("#displayname").innerHTML = profile.displayName;
 
       console.log(profile);
+      getData();
     };
     // getUserProfile();
     //Read File:
@@ -540,8 +541,7 @@
       rawFile.send(null);
     };
 
-    // Example POST method implementation:
-     function postData(url = "", data = {}) {
+    async function postData(url = "", data = {}) {
       // Default options are marked with *
       const response = await fetch(url, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -556,52 +556,57 @@
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(data), // body data type must match "Content-Type" header
       });
-      console.log(response)
-      return response // parses JSON response into native JavaScript objects
+      console.log(response);
+      return response; // parses JSON response into native JavaScript objects
     }
 
-    fetch( "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/getMyData", {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: {
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify({ UID: profile ? profile.userId : null }), // body data type must match "Content-Type" header
-      }).then((response) => response.json())
-      .then((data) => {
-        let listPill = "";
-        userData.data.forEach((item, index) => {
-          let tagTime = ``;
-          item.time &&
-            item.time.forEach((t) => {
-              if (t.title == "เช้า")
-                tagTime += `<div class="tag-time">
+    const getData = () =>
+      fetch(
+        "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/getMyData",
+        {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "same-origin", // include, *same-origin, omit
+          headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: "follow", // manual, *follow, error
+          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: JSON.stringify({ UID: profile ? profile.userId : null }), // body data type must match "Content-Type" header
+        }
+      )
+        .then((response) => response.json())
+        .then((userData) => {
+          let listPill = "";
+          userData.data.forEach((item, index) => {
+            let tagTime = ``;
+            item.time &&
+              item.time.forEach((t) => {
+                if (t.title == "เช้า")
+                  tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunrise.png?alt=media" height="16px" />
                 <p>เช้า</p>
               </div>`;
-              if (t.title == "กลางวัน")
-                tagTime += `<div class="tag-time">
+                if (t.title == "กลางวัน")
+                  tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/cloudy.png?alt=media" height="16px" />
                 <p>กลางวัน</p>
               </div>`;
-              if (t.time == "เย็น")
-                tagTime += `<div class="tag-time">
+                if (t.time == "เย็น")
+                  tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/sunsets.png?alt=media" height="16px" />
                 <p>เย็น</p>
               </div>`;
-              if (t.time == "ก่อนนอน")
-                tagTime += `<div class="tag-time">
+                if (t.time == "ก่อนนอน")
+                  tagTime += `<div class="tag-time">
                 <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/night.png?alt=media" height="16px" />
                 <p>ก่อนนอน</p>
               </div>`;
-            });
+              });
 
-          const content = `<div class="card">
+            const content = `<div class="card">
           <div class="card-tag">
             <div class="tag-colot" style="background-color: ${item.tag}"></div>
             <header class="header-card"><h2>${item.name}</h2></header>
@@ -619,20 +624,11 @@
             </footer>
           </div>
         </div>`;
-          listPill += content;
-        });
-        document.querySelector("#container-card").innerHTML = listPill;
-        listPill = "";
-      }).catch(err => console.log({err}));
-    //usage:
-    // const data = readTextFile("./database.json", (res) => {
-    //   const userData = getUserData("2", res);
-    //   console.log(userData);
-
-    // });
-
-    // const getUserData = (UID, data = []) => {
-    //   return (res = data.find((item) => item.UID == UID));
-    // };
+            listPill += content;
+          });
+          document.querySelector("#container-card").innerHTML = listPill;
+          listPill = "";
+        })
+        .catch((err) => console.log({ err }));
   </script>
 </html>
