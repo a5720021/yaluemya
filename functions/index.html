@@ -281,7 +281,7 @@
         <div class="content-logo">
           <img
             alt="logo"
-            src="https://www.flaticon.com/svg/vstatic/svg/2817/2817889.svg?token=exp=1615610153~hmac=c702f159c16bd2c6ba670e41e13676d5"
+            src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/hamster.png?alt=media"
             id="logo"
           />
           <h1 id="Logo-name">Nutin</h1>
@@ -331,31 +331,7 @@
           </div>
         </form>
       </div>
-      <div id="container-card" class="container-card">
-        <div class="card">
-          <div class="card-tag">
-            <div class="tag-colot" style="background-color: violet"></div>
-            <header class="header-card"><h2>ยาอะไรซักอย่าง</h2></header>
-            <div class="body-card">
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id,
-                dolor optio.
-              </p>
-            </div>
-            <footer class="footer-card">
-              <div class="tag-time">
-                <img src="./img/sunrise.png" height="16px" />
-                <p>เช้า</p>
-              </div>
-
-              <div class="tag-time">
-                <img src="./img/night.png" height="16px" />
-                <p>กลางคืน</p>
-              </div>
-            </footer>
-          </div>
-        </div>
-      </div>
+      <div id="container-card" class="container-card"></div>
     </main>
   </body>
   <script
@@ -389,25 +365,6 @@
       pictureUrl:
         "https://profile.line-scdn.net/0hNrLBlITKEV1xOzoq3OduCk1-HzAGFRcVCV0OP1I6GjgJAlYNRQgJbwc8SjpeAldeSlQLMwc8S29c",
       userId: "U97c1f0227ae7eba2ff0cfb95b0a35fd4",
-    };
-
-    const listTagTime = {
-      เช้า: {
-        img: "./img/sunrise.png",
-        title: "เช้า",
-      },
-      กลางวัน: {
-        img: "./img/cloud.png",
-        title: "กลางวัน",
-      },
-      เย็น: {
-        img: "./img/sunsets.png",
-        title: "เย็น",
-      },
-      ก่อนนอน: {
-        img: "./img/night.png",
-        title: "ก่อนนอน",
-      },
     };
 
     const main = async () => {
@@ -501,7 +458,7 @@
           selectedColor(index);
         });
         if (index == colorSelected) {
-          bt.innerHTML = `<img src="tick.png" style="width: 60%; hieght: 60%; margin: auto;"/>`;
+          bt.innerHTML = `<img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/tick.png?alt=media" style="width: 60%; hieght: 60%; margin: auto;"/>`;
         }
         conten.appendChild(bt);
       });
@@ -550,7 +507,7 @@
               </div>`;
             if (t.title == "กลางวัน")
               tagTime += `<div class="tag-time">
-                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/cloudy.png" height="16px" />
+                <img src="https://firebasestorage.googleapis.com/v0/b/payaihamor.appspot.com/o/cloudy.png?alt=media" height="16px" />
                 <p>กลางวัน</p>
               </div>`;
             if (t.time == "เย็น")
@@ -565,15 +522,6 @@
               </div>`;
           });
 
-        // const card = document.createElement("div");
-        // card.setAttribute("class", "card");
-        // const tagColor = document.createElement("div");
-        // tagColor.setAttribute("class", "tag-colot");
-        // const header = document.createElement("div");
-        // const h2 = document.createElement("h2");
-        // const body = document.createElement("div");
-        // const p = document.createElement("p");
-        // const footer = document.createElement("footer");
         const content = `<div class="card">
           <div class="card-tag">
             <div class="tag-colot" style="background-color: ${item.tag}"></div>
