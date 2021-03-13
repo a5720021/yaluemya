@@ -18,6 +18,14 @@ request(
     // console.log('body:', body); // Print the HTML for the Google homepage.
     let medicineSchedule = JSON.parse(body);
     console.log(medicineSchedule);
+    request.post(
+      "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/data",
+      { 
+        form: { 
+          LIST_LIGHT: "=" + medicineSchedule[0].map() 
+        } 
+      }
+    );
     const column = medicineSchedule
       .filter((user) => {
         const data = user.data[0].time.find((e) => e.title === slot);
@@ -63,4 +71,3 @@ request(
   }
 );
 // console.log(res);
-
