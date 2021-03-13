@@ -41,7 +41,7 @@ let DATA = "";
 
 let database = [
   {
-    UID: "1",
+    UID: "U97c1f0227ae7eba2ff0cfb95b0a35fd4",
     displayName: "test",
     data: [
       {
@@ -196,7 +196,6 @@ app.post("/postMyData", (req, res) => {
     res.json(database[index]);
   }
 });
-
 
 app.get("/web", (req, res) => {
   res.sendFile("./index.html", { root: __dirname });
