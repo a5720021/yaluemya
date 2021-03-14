@@ -41,55 +41,55 @@ let DATA = "";
 
 let database = [
   {
-    UID: "U97c1f0227ae7eba2ff0cfb95b0a35fd4",
-    displayName: "test",
+    UID: "U365da0cf545d9f2b32c78ec49d83d631",
+    displayName: "มันนี่",
     data: [
-      {
-        name: "Paracetamol 500 Mg",
-        time: [
-          {
-            title: "เช้า",
-            Hm: "08:30",
-            status: false,
-          },
-          {
-            title: "กลางวัน",
-            Hm: "12:30",
-            status: false,
-          },
-          {
-            title: "เย็น",
-            Hm: "18:30",
-            status: false,
-          },
-        ],
-        detail: "ครั้งละ 1 เม็ดก่อนอาหาร",
-        tag: "#f09eff",
-        index: 1,
-      },
-      {
-        name: "Aspirin 250 Mg",
-        time: [
-          {
-            title: "เช้า",
-            Hm: "08:30",
-            status: false,
-          },
-          {
-            title: "เย็น",
-            Hm: "18:30",
-            status: false,
-          },
-        ],
-        detail: "ครั้งละ 2 เม็ดก่อนอาหาร",
-        tag: "#009e00",
-        index: 2,
-      },
+      // {
+      //   name: "Paracetamol 500 Mg",
+      //   time: [
+      //     {
+      //       title: "เช้า",
+      //       Hm: "08:30",
+      //       status: false,
+      //     },
+      //     {
+      //       title: "กลางวัน",
+      //       Hm: "12:30",
+      //       status: false,
+      //     },
+      //     {
+      //       title: "เย็น",
+      //       Hm: "18:30",
+      //       status: false,
+      //     },
+      //   ],
+      //   detail: "ครั้งละ 1 เม็ดก่อนอาหาร",
+      //   tag: "#f09eff",
+      //   index: 1,
+      // },
+      // {
+      //   name: "Aspirin 250 Mg",
+      //   time: [
+      //     {
+      //       title: "เช้า",
+      //       Hm: "08:30",
+      //       status: false,
+      //     },
+      //     {
+      //       title: "เย็น",
+      //       Hm: "18:30",
+      //       status: false,
+      //     },
+      //   ],
+      //   detail: "ครั้งละ 2 เม็ดก่อนอาหาร",
+      //   tag: "#009e00",
+      //   index: 2,
+      // },
     ],
   },
 
   {
-    UID: "12",
+    UID: "U97c1f0227ae7eba2ff0cfb95b0a35fd4",
     displayName: "Test 2",
     data: [
       {
@@ -276,9 +276,23 @@ app.post("/webhook", (req, res) => {
 
   function hasTakenMedicine() {
     // console.log(agent.originalDetectIntentRequest.payload.data.source.userId);
-    const data = req.body.originalDetectIntentRequest.payload.data;
-    // const payload = data.payload.data
-    // console.log(data)
+    const payload = req.body.originalDetectIntentRequest.payload;
+    const time = payload.data.message.text.split(" ")[1];
+    const userId = payload.data.source.userId
+    console.log(time)
+    console.log(payload.data.source.userId)
+    const user = database.findIndex(e => userId === e.UID)
+    console.log(user)
+    // const user = user.data.forEach(item => {
+    //   const index = item.findIndex(e => e.title === time)
+    //   if(index > -1){
+    //     database[user].item[index]
+    //   }
+    // })
+    // const result = user.find(e => {
+
+    // })
+    
     STATUS = 0;
     agent.add(`เก่งมาก`);
   }
