@@ -474,7 +474,7 @@
         return;
       } else document.querySelector("#label_pill_time").style.color = "#f0f0f0";
       postData(
-        "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/postMyData",
+        "https://3919b52c1a60.ngrok.io/x-group-290609/asia-east2/apiNutin/postMyData",
         { UID: profile.userId, displayName: profile.displayName, data }
       ).then(() => location.reload());
     });
@@ -514,7 +514,7 @@
 
     const deletePill = async ({ UID, index }) => {
       postData(
-        "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/deletePill",
+        "https://3919b52c1a60.ngrok.io/x-group-290609/asia-east2/apiNutin/deletePill",
         { UID, index }
       ).then(() => location.reload());
     };
@@ -540,7 +540,7 @@
 
     const getData = () =>
       fetch(
-        "https://21e7be8a5125.ngrok.io/x-group-290609/asia-east2/apiNutin/getMyData",
+        "https://3919b52c1a60.ngrok.io/x-group-290609/asia-east2/apiNutin/getMyData",
         {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, *cors, same-origin
