@@ -282,10 +282,10 @@ app.post("/webhook", (req, res) => {
     console.log(time)
     console.log(payload.data.source.userId)
     const user = database.findIndex(e => userId === e.UID)
-    console.log(user)
+    // console.log(user)
     // const user = user.data.forEach(item => {
-    //   const index = item.findIndex(e => e.title === time)
-    //   if(index > -1){
+    //   // const index = item.findIndex(e => e.title === time)
+    //   // if(index > -1){
     //     database[user].item[index]
     //   }
     // })
